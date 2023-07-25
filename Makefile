@@ -6,7 +6,7 @@
 #    By: edechena <edechena@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/15 15:56:29 by edechena          #+#    #+#              #
-#    Updated: 2023/07/25 11:59:03 by edechena         ###   ########lyon.fr    #
+#    Updated: 2023/07/25 14:57:42 by edechena         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ CFLAGS		=	-Wall -Werror -Wextra
 SRCSPATH 	=	./srcs/
 OBJSPATH 	=	./objs/
 INC 		=	./includes/
+INCFILE 	=	./includes/bsq.h
 
 SRCS 		=	utils/check_map.c\
 				utils/free.c\
@@ -38,7 +39,7 @@ OBJS 		=	$(addprefix $(OBJSPATH), $(OBJSNAME))
 
 all: $(NAME)
 
-$(NAME):	$(OBJS)
+$(NAME): $(OBJS) $(INCFILE)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "Project compiled"
 
@@ -62,9 +63,9 @@ clena: clean
 
 fclean:
 	@$(RM) $(OBJSPATH)
-	@$(RM) $(NAME) $(NAME_DEBUG)
+	@$(RM) $(NAME)
 	@echo "Project all cleaned up"
 
-re:			fclean all
+re:	fclean all
 
 .PHONY: all clean fclean re
