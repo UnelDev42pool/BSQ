@@ -6,7 +6,7 @@
 /*   By: edechena <edechena@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:10:59 by edechena          #+#    #+#             */
-/*   Updated: 2023/07/24 10:10:59 by edechena         ###   ########lyon.fr   */
+/*   Updated: 2023/07/25 11:26:28 by edechena         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ bool	process_end_check(t_data *d, int *x, int *y, int i)
 {
 	if (d->map[i] == '\n')
 	{
-		if (x[0] != d->len_lines)
+		if (*x != d->len_lines)
 		{
 			ft_putstr("map error\n");
 			return (false);
 		}
-		x[0] = -1;
-		y[0] += 1;
+		*x = -1;
+		*y = *y + 1;
 	}
 	else
 	{
@@ -65,17 +65,17 @@ bool	process(t_data *d, unsigned short **matrix)
 	i = d->n;
 	x = 0;
 	y = 0;
-	while (i < (d->len_lines + 1) * d->nbr_lines)
+	while (i < (d->len_lines + 1) * d->nbr_lines + d->n)
 	{
 		if (y >= d->nbr_lines)
 		{
 			ft_putstr("map error\n");
 			return (false);
 		}
-		else if (d->map[i] == d->empty)
-			process_empty(d, matrix, x, y);
 		else if (d->map[i] == d->obstacle)
 			matrix[y][x] = 0;
+		else if (d->map[i] == d->empty)
+			process_empty(d, matrix, x, y);
 		else if (!process_end_check(d, &x, &y, i))
 			return (false);
 		i++;
